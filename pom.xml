@@ -23,6 +23,8 @@
         <apache.maven-resources.version>3.2.0</apache.maven-resources.version>
         <junit.version>4.13</junit.version>
         <lombok.version>1.18.12</lombok.version>
+        <meowu.account-client.version>0.0.1</meowu.account-client.version>
+        <meowu.commons-mybatis.version>0.0.1</meowu.commons-mybatis.version>
         <meowu.commons-utils.version>0.0.1</meowu.commons-utils.version>
         <mybatis.springboot-starter.version>2.1.4</mybatis.springboot-starter.version>
         <springboot.starter-parent.version>2.4.5</springboot.starter-parent.version>
@@ -82,6 +84,18 @@
                 <groupId>com.meowu.commons</groupId>
                 <artifactId>commons-utils</artifactId>
                 <version>${meowu.commons-utils.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.meowu.commons</groupId>
+                <artifactId>commons-mybatis</artifactId>
+                <version>${meowu.commons-mybatis.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.meowu.account.portal</groupId>
+                <artifactId>account-client</artifactId>
+                <version>${meowu.account-client.version}</version>
             </dependency>
 
             <!-- junit -->

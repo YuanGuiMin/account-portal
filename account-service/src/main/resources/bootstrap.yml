@@ -1,0 +1,22 @@
+server:
+  port: ${application.port}
+
+logging:
+  config: ${logger.config}
+
+spring:
+  application:
+    name: ${application.name}
+  profiles:
+    active: ${application.profile}
+  cloud:
+    nacos:
+      config:
+        server-addr: ${alibaba.nacos.server}
+        namespace: ${alibaba.nacos.namespace}
+        group: ${alibaba.nacos.group}
+        file-extension: ${alibaba.nacos.file-extension}
+      discovery:
+        server-addr: ${alibaba.nacos.server}
+        namespace: ${alibaba.nacos.namespace}
+        group: ${alibaba.nacos.group}

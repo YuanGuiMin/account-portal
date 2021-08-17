@@ -26,12 +26,14 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!-- meowu -->
         <dependency>
             <groupId>com.meowu.commons</groupId>
             <artifactId>commons-utils</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
