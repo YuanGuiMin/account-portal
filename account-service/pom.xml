@@ -101,6 +101,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.meowu.commons</groupId>
+            <artifactId>commons-redis</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.meowu.account.portal</groupId>
             <artifactId>account-client</artifactId>
         </dependency>

@@ -5,6 +5,7 @@ import com.meowu.account.portal.service.core.account.dao.mapper.AccountMapper;
 import com.meowu.commons.mybatis.mysql.criteria.Criteria;
 import com.meowu.commons.mybatis.mysql.criteria.Restrictions;
 import com.meowu.commons.utils.utils.AssertUtils;
+import com.meowu.commons.utils.utils.SnowflakeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +13,9 @@ import java.util.Date;
 
 @Repository
 public class AccountDao{
+
+    @Autowired
+    private SnowflakeUtils snowflakeUtils;
 
     @Autowired
     private AccountMapper mapper;
@@ -23,7 +27,7 @@ public class AccountDao{
         AssertUtils.notNull(account.getState(), "account state must not be null");
 
         //设置参数
-        account.setId("");
+        account.setId(snowflakeUtils.getId());
         account.setDeleted(false);
         account.setCreateTime(new Date());
 
@@ -71,4 +75,5 @@ public class AccountDao{
 
         return mapper.get(criteria);
     }
+
 }
