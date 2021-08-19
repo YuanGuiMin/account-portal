@@ -1,9 +1,16 @@
 package com.meowu.account.portal.service.core.account.consts;
 
+import java.util.concurrent.TimeUnit;
+
 public interface AccountConsts{
 
+    //username lock name
     String USERNAME_REDIS_LOCK = "lock:username:";
+    //5 minutes
+    Long USERNAME_REDIS_LOCK_EXPIRE = TimeUnit.MINUTES.toSeconds(5);
 
-    //300 seconds
-    Integer USERNAME_REDIS_LOCK_EXPIRE = 300;
+    //token name
+    String TOKEN_REDIS = "token:";
+    //2 hours
+    Long TOKEN_REDIS_EXPIRE = TimeUnit.HOURS.toSeconds(2);
 }
