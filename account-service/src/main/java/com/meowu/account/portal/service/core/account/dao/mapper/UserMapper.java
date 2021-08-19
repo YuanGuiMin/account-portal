@@ -1,6 +1,6 @@
 package com.meowu.account.portal.service.core.account.dao.mapper;
 
-import com.meowu.account.portal.client.account.entity.Account;
+import com.meowu.account.portal.client.account.entity.User;
 import com.meowu.commons.mybatis.mysql.criteria.Criteria;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -10,15 +10,15 @@ import java.util.List;
 
 @Mapper
 @Repository
-public interface AccountMapper{
+public interface UserMapper{
 
-    void save(Account account);
+    void save(User user);
 
-    void update(Account account);
+    void update(User user);
 
-    Account get(@Param("params") Criteria criteria);
+    User get(@Param("params") Criteria criteria);
 
-    List<Account> find(@Param("params") Criteria criteria);
+    List<User> find(@Param("params") Criteria criteria);
 
     Long count(@Param("params") Criteria criteria);
 }

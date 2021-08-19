@@ -1,6 +1,6 @@
 package com.meowu.account.portal.service.core.account.dao;
 
-import com.meowu.account.portal.client.entity.Account;
+import com.meowu.account.portal.client.account.entity.Account;
 import com.meowu.account.portal.service.core.account.dao.mapper.AccountMapper;
 import com.meowu.commons.mybatis.mysql.criteria.Criteria;
 import com.meowu.commons.mybatis.mysql.criteria.Restrictions;

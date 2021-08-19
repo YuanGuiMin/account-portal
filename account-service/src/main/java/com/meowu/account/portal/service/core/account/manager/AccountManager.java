@@ -1,7 +1,7 @@
 package com.meowu.account.portal.service.core.account.manager;
 
-import com.meowu.account.portal.client.entity.Account;
-import com.meowu.account.portal.client.entity.AccountState;
+import com.meowu.account.portal.client.account.entity.Account;
+import com.meowu.account.portal.client.account.entity.AccountState;
 import com.meowu.account.portal.client.security.exception.AccountNotFoundException;
 import com.meowu.account.portal.client.security.exception.PasswordException;
 import com.meowu.account.portal.client.security.exception.UsernameDuplicateException;
