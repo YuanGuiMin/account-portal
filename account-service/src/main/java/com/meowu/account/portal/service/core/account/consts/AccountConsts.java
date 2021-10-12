@@ -13,4 +13,7 @@ public interface AccountConsts{
     String TOKEN_REDIS = "token:";
     //2 hours
     Long TOKEN_REDIS_EXPIRE = TimeUnit.HOURS.toSeconds(2);
+
+    //10 minutes
+    Long MINIMUM_UPDATE_EXPIRE = TimeUnit.MINUTES.toSeconds(10);
 }

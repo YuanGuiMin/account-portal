@@ -7,4 +7,6 @@ public interface AccountService{
     void register(String username, String password);
 
     AccountVO login(String username, String password);
+
+    AccountVO getByToken(String token);
 }

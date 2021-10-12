@@ -5,6 +5,7 @@ import com.meowu.account.portal.client.account.entity.User;
 import com.meowu.account.portal.client.account.entity.view.AccountVO;
 import com.meowu.account.portal.client.security.exception.AccountFrozenException;
 import com.meowu.account.portal.client.security.exception.AccountLockedException;
+import com.meowu.account.portal.client.security.exception.InvalidTokenException;
 import com.meowu.account.portal.service.core.account.manager.AccountManager;
 import com.meowu.account.portal.service.core.account.manager.TokenManager;
 import com.meowu.account.portal.service.core.account.manager.UserManager;
@@ -62,6 +63,21 @@ public class AccountServiceImpl implements AccountService{
 
             //创建token信息
             return tokenManager.generate(jedis, account, user);
+        }
+    }
+
+    @Override
+    public AccountVO getByToken(String token){
+        try(ShardedJedis jedis = shardedJedisPool.getResource()){
+            //查询账户信息
+            AccountVO account = tokenManager.getAccount(jedis, token);
+
+            //验证账户信息
+            if(account == null){
+                throw new InvalidTokenException("Token[{0}] is invalid");
+            }
+
+            return account;
         }
     }
 }
