@@ -55,7 +55,13 @@ public class TokenManager{
         String cacheName = AccountConsts.TOKEN_REDIS + token;
 
         //查询过期时间
-        return ShardedJedisHelper.ttl(jedis, cacheName);
+        Long expire = ShardedJedisHelper.ttl(jedis, cacheName);
+
+        if(AccountConsts.TOKEN_NOT_EXIST_STATUS == expire){
+            throw new InvalidTokenException("Token[{0}] is invalid");
+        }
+
+        return expire;
     }
 
     public Long refreshExpireTime(ShardedJedis jedis, String token){
