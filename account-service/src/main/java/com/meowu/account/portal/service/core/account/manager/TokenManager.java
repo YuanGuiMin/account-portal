@@ -68,7 +68,10 @@ public class TokenManager{
         Long expire = ShardedJedisHelper.ttl(jedis, cacheName);
 
         //更新Token时间
-        if(expire != null && expire <= AccountConsts.MINIMUM_UPDATE_EXPIRE){
+        if(AccountConsts.TOKEN_NOT_EXIST_STATUS == expire){
+            throw new InvalidTokenException("Token[{0}] is invalid");
+
+        }else if(expire != null && AccountConsts.TOKEN_PERPETUATION_STATUS != expire && AccountConsts.MINIMUM_UPDATE_EXPIRE >= expire){
             ShardedJedisHelper.expire(jedis, cacheName, AccountConsts.TOKEN_REDIS_EXPIRE);
         }
 
