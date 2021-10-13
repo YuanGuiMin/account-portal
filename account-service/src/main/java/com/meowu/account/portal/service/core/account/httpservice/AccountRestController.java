@@ -29,4 +29,11 @@ public class AccountRestController{
 
         return new Response<AccountVO>("account login successfully", view);
     }
+
+    @PostMapping(value = "/logout", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Response logout(@RequestHeader("token") String token){
+        accountService.logout(token);
+
+        return new Response("account logout successfully");
+    }
 }

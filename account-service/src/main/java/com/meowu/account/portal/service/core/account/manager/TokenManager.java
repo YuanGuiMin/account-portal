@@ -1,6 +1,5 @@
 package com.meowu.account.portal.service.core.account.manager;
 
-import ch.qos.logback.core.util.TimeUtil;
 import com.meowu.account.portal.client.account.entity.Account;
 import com.meowu.account.portal.client.account.entity.User;
 import com.meowu.account.portal.client.account.entity.view.AccountVO;
@@ -73,7 +72,7 @@ public class TokenManager{
         //查询过期时间
         Long expire = ShardedJedisHelper.ttl(jedis, cacheName);
 
-        //更新Token时间
+        //更新token时间
         if(AccountConsts.TOKEN_NOT_EXIST_STATUS == expire){
             throw new InvalidTokenException("Token[{0}] is invalid");
 
@@ -82,5 +81,15 @@ public class TokenManager{
         }
 
         return expire;
+    }
+
+    public void delete(ShardedJedis jedis, String token){
+        AssertUtils.notNull(jedis, "redis client must not be null");
+        AssertUtils.hasText(token, "token must not be null");
+
+        //缓存名
+        String cacheName = AccountConsts.TOKEN_REDIS + token;
+        //删除token信息
+        ShardedJedisHelper.delete(jedis, cacheName);
     }
 }

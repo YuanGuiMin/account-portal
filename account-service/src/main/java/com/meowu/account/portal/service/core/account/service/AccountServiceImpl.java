@@ -67,6 +67,13 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
+    public void logout(String token){
+        try(ShardedJedis jedis = shardedJedisPool.getResource()){
+            tokenManager.delete(jedis, token);
+        }
+    }
+
+    @Override
     public AccountVO getByToken(String token){
         try(ShardedJedis jedis = shardedJedisPool.getResource()){
             //查询账户信息

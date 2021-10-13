@@ -8,5 +8,7 @@ public interface AccountService{
 
     AccountVO login(String username, String password);
 
+    void logout(String token);
+
     AccountVO getByToken(String token);
 }
