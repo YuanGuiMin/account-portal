@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @ControllerAdvice
-@ResponseBody
 public class ExceptionAdvice{
 
     private static final Logger logger = LoggerFactory.getLogger(ExceptionAdvice.class);
 
     @ExceptionHandler(value = Exception.class)
+    @ResponseBody
     public Response exception(Exception e){
         logger.error(e.getMessage(), e);
 
@@ -23,6 +23,7 @@ public class ExceptionAdvice{
     }
 
     @ExceptionHandler(value = RuntimeException.class)
+    @ResponseBody
     public Response runtimeException(RuntimeException e){
         logger.error(e.getMessage(), e);
 
@@ -30,6 +31,7 @@ public class ExceptionAdvice{
     }
 
     @ExceptionHandler(value = MeowuException.class)
+    @ResponseBody
     public Response meowuException(MeowuException e){
         logger.error(e.getMessage(), e);
 
@@ -37,6 +39,7 @@ public class ExceptionAdvice{
     }
 
     @ExceptionHandler(value = MeowuRuntimeException.class)
+    @ResponseBody
     public Response meowuRuntimeException(MeowuRuntimeException e){
         logger.error(e.getMessage(), e);
 

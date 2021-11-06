@@ -45,12 +45,12 @@ public class ShardedJedisConfig{
             throw new ConfigurationException("redis nodes must not be null");
         }
 
-        //nodes info
+        // nodes info
         List<JedisShardInfo> shardInfoList = nodes.stream()
                                                   .map(node -> new JedisShardInfo(node))
                                                   .collect(Collectors.toList());
 
-        //create the config
+        // create the config
         JedisPoolConfig config = new JedisPoolConfig();
         config.setMaxTotal(maxTotal);
         config.setMaxIdle(maxIdle);
@@ -59,7 +59,7 @@ public class ShardedJedisConfig{
         config.setTestOnBorrow(testOnBorrow);
         config.setTestOnReturn(testOnReturn);
 
-        //create and return the pool
+        // create and return the pool
         return new ShardedJedisPool(config, shardInfoList);
     }
 }

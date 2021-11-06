@@ -11,11 +11,11 @@ import java.util.regex.Pattern;
 
 public class PasswordUtils{
 
-    //由至少1个数字和1个字母组成且长度为6~20个字符,其中可包含特殊字符_-+=`~!@#$%^&*().,?
+    // 由至少1个数字和1个字母组成且长度为6~20个字符,其中可包含特殊字符_-+=`~!@#$%^&*().,?
     private static final String REGEX = "^(?=[a-zA-Z_\\-+=`~!@#$%^&*()\\.,?']*?[0-9][a-zA-Z_\\-+=`~!@#$%^&*()\\.,?']*)(?=[0-9_\\-+=`~!@#$%^&*()\\.,?']*?[a-zA-Z][0-9_\\-+=`~!@#$%^&*()\\.,?']*)[a-zA-Z0-9_\\-+=`~!@#$%^&*()\\.,?']{6,20}$";
 
     public static boolean verify(String sourcePassword, String targetPassword, String privateKey){
-        //decode
+        // decode
         String sourcePlainText = decode(sourcePassword, privateKey);
         String targetPlainText = decode(targetPassword, privateKey);
 
@@ -23,10 +23,10 @@ public class PasswordUtils{
     }
 
     public static boolean brokenRule(String password, String privateKey){
-        //decode password
+        // decode password
         String plainText = decode(password, privateKey);
 
-        //match the rule
+        // match the rule
         Pattern pattern = Pattern.compile(REGEX);
         Matcher matcher = pattern.matcher(plainText);
 
@@ -37,10 +37,10 @@ public class PasswordUtils{
         AssertUtils.hasText(password, "password must not be null");
         AssertUtils.hasText(privateKey, "private key must not be null");
 
-        //rsa key
+        // rsa key
         PrivateKey key = RSAUtils.generatePrivateKey(Base64Utils.decode(privateKey.getBytes()));
 
-        //password plain text
+        // password plain text
         byte[] plainBytes = RSAUtils.decryptBy2048(Base64Utils.decode(password.getBytes()), key);
 
         return SpellUtils.toString(plainBytes);

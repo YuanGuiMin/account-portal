@@ -24,6 +24,7 @@
         <junit.version>4.13</junit.version>
         <lombok.version>1.18.12</lombok.version>
         <meowu.account-client.version>0.0.1</meowu.account-client.version>
+        <meowu.support-client.version>0.0.1</meowu.support-client.version>
         <meowu.commons-mybatis.version>0.0.1</meowu.commons-mybatis.version>
         <meowu.commons-redis.version>0.0.1</meowu.commons-redis.version>
         <meowu.commons-utils.version>0.0.1</meowu.commons-utils.version>
@@ -103,6 +104,12 @@
                 <groupId>com.meowu.account.portal</groupId>
                 <artifactId>account-client</artifactId>
                 <version>${meowu.account-client.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.meowu.support.portal</groupId>
+                <artifactId>support-client</artifactId>
+                <version>${meowu.support-client.version}</version>
             </dependency>
 
             <!-- junit -->

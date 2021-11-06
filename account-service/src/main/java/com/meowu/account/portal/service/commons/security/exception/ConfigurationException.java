@@ -7,6 +7,7 @@ import java.text.MessageFormat;
 public class ConfigurationException extends MeowuException{
 
     public ConfigurationException(){
+        super();
     }
 
     public ConfigurationException(String message){

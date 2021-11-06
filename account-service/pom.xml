@@ -110,6 +110,11 @@
             <artifactId>account-client</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.meowu.support.portal</groupId>
+            <artifactId>support-client</artifactId>
+        </dependency>
+
         <!-- test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
