@@ -15,10 +15,10 @@ public class KeyRestController{
     @Autowired
     private KeyService keyService;
 
-    @GetMapping(value = "/rsa/public", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response<String> getRSAPublicKey(){
-        String key = keyService.getRSAPublicKey();
+    @GetMapping(value = "/password/rsa/public", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Response<String> getPasswordRSAPublicKey(){
+        String key = keyService.getPasswordRSAPublicKey();
 
-        return new Response<String>("get RSA public key successfully", key);
+        return new Response<String>("get password RSA public key successfully", key);
     }
 }

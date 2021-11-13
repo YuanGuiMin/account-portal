@@ -1,5 +1,6 @@
 package com.meowu.account.portal.service.core.account.dao;
 
+import com.meowu.commons.utils.utils.RadixUtils;
 import com.meowu.commons.utils.utils.SnowflakeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,6 +12,6 @@ public class TokenDao{
     private SnowflakeUtils snowflakeUtils;
 
     public String generate(){
-        return Long.toString(snowflakeUtils.nextId(), 62);
+        return RadixUtils.toString(snowflakeUtils.nextId(), 62);
     }
 }

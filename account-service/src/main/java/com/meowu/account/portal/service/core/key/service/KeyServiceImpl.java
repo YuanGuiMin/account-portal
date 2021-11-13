@@ -19,9 +19,17 @@ public class KeyServiceImpl implements KeyService{
     private KeyManager keyManager;
 
     @Override
-    public String getRSAPublicKey(){
+    public String getPasswordRSAPublicKey(){
         try(ShardedJedis jedis = shardedJedisPool.getResource()){
             return keyManager.getContentByName(jedis, KeyConsts.RSA_PASSWORD_PUBLIC_KEY);
+        }
+    }
+
+    @Transactional
+    @Override
+    public void createPasswordRSAKey(){
+        try(ShardedJedis jedis = shardedJedisPool.getResource()){
+            keyManager.createPasswordRSAKey(jedis);
         }
     }
 }

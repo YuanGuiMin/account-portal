@@ -1,6 +1,6 @@
 package com.meowu.account.portal.service.core.account.service;
 
-import com.meowu.account.portal.client.account.entity.view.AccountVO;
+import com.meowu.account.portal.client.account.entity.response.AccountVO;
 
 public interface AccountService{
 

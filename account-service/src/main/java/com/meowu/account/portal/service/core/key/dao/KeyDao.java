@@ -28,7 +28,6 @@ public class KeyDao{
         Assert.hasText(key.getContent(), "key content must not be null");
         Assert.hasText(key.getName(), "key name must not be null");
 
-        //设置参数
         key.setId(snowflakeUtils.getId());
         key.setCreateTime(new Date());
 
@@ -39,16 +38,25 @@ public class KeyDao{
         Assert.notNull(key, "key must not be null");
         Assert.hasText(key.getId(), "key id must not be null");
 
-        //设置参数
         key.setUpdateTime(new Date());
 
         mapper.update(key);
     }
 
+    public boolean existByName(String name){
+        Assert.hasText(name, "key name must not be null");
+
+        Criteria criteria = new Criteria();
+        criteria.add(Restrictions.eq("name", name));
+
+        Long total = mapper.count(criteria);
+
+        return (total != null && total > 0);
+    }
+
     public String getContentByName(String name){
         Assert.hasText(name, "key name must not be null");
 
-        //查询参数
         Criteria criteria = new Criteria();
         criteria.add(Restrictions.eq("name", name));
 

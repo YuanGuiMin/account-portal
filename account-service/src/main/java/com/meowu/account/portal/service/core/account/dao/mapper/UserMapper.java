@@ -1,6 +1,6 @@
 package com.meowu.account.portal.service.core.account.dao.mapper;
 
-import com.meowu.account.portal.client.account.entity.User;
+import com.meowu.account.portal.service.core.account.entity.User;
 import com.meowu.commons.mybatis.mysql.criteria.Criteria;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

@@ -6,6 +6,7 @@ import com.meowu.commons.utils.utils.RSAUtils;
 import com.meowu.commons.utils.utils.SpellUtils;
 
 import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,6 +32,19 @@ public class PasswordUtils{
         Matcher matcher = pattern.matcher(plainText);
 
         return !matcher.matches();
+    }
+
+    public static String encode(String password, String publicKey){
+        AssertUtils.hasText(password, "password must not be null");
+        AssertUtils.hasText(publicKey, "public key must not be null");
+
+        // rsa key
+        PublicKey key = RSAUtils.generatePublicKey(Base64Utils.decode(publicKey.getBytes()));
+
+        // password encode text
+        byte[] encodeBytes = RSAUtils.encryptBy2048(password.getBytes(), key);
+
+        return SpellUtils.toString(Base64Utils.encode(encodeBytes));
     }
 
     public static String decode(String password, String privateKey){

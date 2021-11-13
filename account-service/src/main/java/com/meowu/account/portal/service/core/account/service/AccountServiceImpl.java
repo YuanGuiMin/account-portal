@@ -1,8 +1,8 @@
 package com.meowu.account.portal.service.core.account.service;
 
-import com.meowu.account.portal.client.account.entity.Account;
-import com.meowu.account.portal.client.account.entity.User;
-import com.meowu.account.portal.client.account.entity.view.AccountVO;
+import com.meowu.account.portal.service.core.account.entity.Account;
+import com.meowu.account.portal.service.core.account.entity.User;
+import com.meowu.account.portal.client.account.entity.response.AccountVO;
 import com.meowu.account.portal.client.security.exception.AccountFrozenException;
 import com.meowu.account.portal.client.security.exception.AccountLockedException;
 import com.meowu.account.portal.client.security.exception.InvalidTokenException;
@@ -35,9 +35,9 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public void register(String username, String password){
         try(ShardedJedis jedis = shardedJedisPool.getResource()){
-            //创建账号信息
+            // create
             Account account = accountManager.save(jedis, username, password);
-            //创建用户信息
+            // create
             User user = userManager.save(account.getId());
         }
     }
@@ -45,10 +45,10 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public AccountVO login(String username, String password){
         try(ShardedJedis jedis = shardedJedisPool.getResource()){
-            //查询账户信息
+            // 查询账户信息
             Account account = accountManager.get(jedis, username, password);
 
-            //判断用户状态
+            // 判断用户状态
             switch(account.getState()){
                 case FROZEN:
                     throw new AccountFrozenException("account[{0}] has been frozen", username);
@@ -58,10 +58,10 @@ public class AccountServiceImpl implements AccountService{
                     break;
             }
 
-            //查询用户信息
+            // 查询用户信息
             User user = userManager.getByAccountId(account.getId());
 
-            //创建token信息
+            // 创建token信息
             return tokenManager.generate(jedis, account, user);
         }
     }
@@ -76,10 +76,10 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public AccountVO getByToken(String token){
         try(ShardedJedis jedis = shardedJedisPool.getResource()){
-            //查询账户信息
+            // 查询账户信息
             AccountVO account = tokenManager.getAccount(jedis, token);
 
-            //验证账户信息
+            // 验证账户信息
             if(account == null){
                 throw new InvalidTokenException("Token[{0}] is invalid");
             }

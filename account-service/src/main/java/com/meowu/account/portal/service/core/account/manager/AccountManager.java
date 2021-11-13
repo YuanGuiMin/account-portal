@@ -1,7 +1,7 @@
 package com.meowu.account.portal.service.core.account.manager;
 
-import com.meowu.account.portal.client.account.entity.Account;
-import com.meowu.account.portal.client.account.entity.AccountState;
+import com.meowu.account.portal.service.core.account.entity.Account;
+import com.meowu.account.portal.service.core.account.entity.AccountState;
 import com.meowu.account.portal.client.security.exception.AccountNotFoundException;
 import com.meowu.account.portal.client.security.exception.PasswordException;
 import com.meowu.account.portal.client.security.exception.UsernameDuplicateException;
@@ -30,21 +30,21 @@ public class AccountManager{
         AssertUtils.hasText(username, "username must not be null");
         AssertUtils.hasText(password, "password must not be null");
 
-        //lock name
+        // lock name
         String lock = AccountConsts.USERNAME_REDIS_LOCK + username;
 
         try{
             if(ShardedJedisHelper.setIfNotExist(jedis, lock, 1, AccountConsts.USERNAME_REDIS_LOCK_EXPIRE)){
                 if(!accountDao.existByUsername(username)){
-                    //rsa key
+                    // rsa key
                     String privateKey = keyDao.getContentByName(jedis, KeyConsts.RSA_PASSWORD_PRIVATE_KEY);
 
-                    //验证密码规则
+                    // password rule
                     if(PasswordUtils.brokenRule(password, privateKey)){
                         throw new PasswordException("password has broken the rule");
                     }
 
-                    //create account
+                    // create account
                     Account account = new Account();
                     account.setUsername(username);
                     account.setPassword(password);
@@ -55,10 +55,10 @@ public class AccountManager{
                 }
             }
 
-            //账户名已使用
+            // username has been used
             throw new UsernameDuplicateException("username[{0}] has been used", username);
         }finally{
-            //delete redis lock
+            // delete redis lock
             ShardedJedisHelper.delete(jedis, lock);
         }
     }
@@ -69,14 +69,14 @@ public class AccountManager{
         AssertUtils.hasText(password, "password must not be null");
 
         Account account = accountDao.getByUsername(username);
-        //验证账户信息
+        // 验证账户信息
         if(account == null){
             throw new AccountNotFoundException("username or password is wrong");
         }
 
-        //rsa key
+        // rsa key
         String privateKey = keyDao.getContentByName(jedis, KeyConsts.RSA_PASSWORD_PRIVATE_KEY);
-        //验证密码
+        // 验证密码
         if(!PasswordUtils.verify(account.getPassword(), password, privateKey)){
             throw new AccountNotFoundException("username or password is wrong");
         }

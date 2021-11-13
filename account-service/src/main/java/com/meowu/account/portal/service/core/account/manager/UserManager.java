@@ -1,6 +1,6 @@
 package com.meowu.account.portal.service.core.account.manager;
 
-import com.meowu.account.portal.client.account.entity.User;
+import com.meowu.account.portal.service.core.account.entity.User;
 import com.meowu.account.portal.service.commons.security.stereotype.Manager;
 import com.meowu.account.portal.service.core.account.dao.UserDao;
 import com.meowu.commons.utils.utils.AssertUtils;

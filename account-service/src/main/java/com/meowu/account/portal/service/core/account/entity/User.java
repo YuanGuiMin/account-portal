@@ -1,4 +1,4 @@
-package com.meowu.account.portal.client.account.entity;
+package com.meowu.account.portal.service.core.account.entity;
 
 import com.meowu.commons.utils.domain.Creatable;
 import com.meowu.commons.utils.domain.Entity;

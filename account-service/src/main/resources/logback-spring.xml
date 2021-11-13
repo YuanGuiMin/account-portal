@@ -25,6 +25,11 @@
         </encoder>
     </appender>
 
+    <!-- customer configuration -->
+    <logger name="com.alibaba.nacos.client.config" level="ERROR"/>
+    <logger name="com.alibaba.nacos.client.naming" level="ERROR"/>
+
+
     <root level="${logger.level}">
         <appender-ref ref="${logger.appender}"/>
     </root>

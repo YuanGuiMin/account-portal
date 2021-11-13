@@ -1,8 +1,9 @@
 package com.meowu.account.portal.service.core.account.manager;
 
-import com.meowu.account.portal.client.account.entity.Account;
-import com.meowu.account.portal.client.account.entity.User;
-import com.meowu.account.portal.client.account.entity.view.AccountVO;
+import com.meowu.account.portal.service.commons.utils.AccountUtils;
+import com.meowu.account.portal.service.core.account.entity.Account;
+import com.meowu.account.portal.service.core.account.entity.User;
+import com.meowu.account.portal.client.account.entity.response.AccountVO;
 import com.meowu.account.portal.client.security.exception.InvalidTokenException;
 import com.meowu.account.portal.service.commons.security.stereotype.Manager;
 import com.meowu.account.portal.service.core.account.consts.AccountConsts;
@@ -26,7 +27,7 @@ public class TokenManager{
         //创建token
         String token = tokenDao.generate();
         //创建token信息
-        AccountVO view = new AccountVO(token, account, user);
+        AccountVO view = AccountUtils.toView(token, account, user);
         //缓存名
         String cacheName = AccountConsts.TOKEN_REDIS + token;
         //保存信息

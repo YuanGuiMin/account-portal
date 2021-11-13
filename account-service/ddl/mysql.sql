@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS `account_portal` DEFAULT CHARACTER SET utf8mb4 DEF
 CREATE TABLE IF NOT EXISTS `account`(
     `id`          VARCHAR(20)  NOT NULL     COMMENT 'id',
     `username`    VARCHAR(20)  NOT NULL     COMMENT 'name for login',
-    `password`    VARCHAR(255) NOT NULL     COMMENT 'password for login',
+    `password`    TEXT         NOT NULL     COMMENT 'password for login',
     `state`       TINYINT(1)   NOT NULL     COMMENT 'account state',
     `deleted`     TINYINT(1)   NOT NULL     COMMENT 'account delete state',
     `create_time` DATETIME     NOT NULL     COMMENT 'create time',
@@ -25,4 +25,14 @@ CREATE TABLE IF NOT EXISTS `user`(
     `update_time`    DATETIME     DEFAULT NULL COMMENT 'update time',
     PRIMARY KEY(`id`),
     INDEX(`account_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `key_store` (
+    `id`          VARCHAR(20) NOT NULL     COMMENT 'id',
+    `name`        VARCHAR(50) NOT NULL     COMMENT 'key name',
+    `content`     TEXT NOT    NULL         COMMENT 'key content',
+    `create_time` DATETIME    NOT NULL     COMMENT 'create time',
+    `update_time` DATETIME    DEFAULT NULL COMMENT 'update time',
+    PRIMARY KEY(`id`),
+    INDEX(`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

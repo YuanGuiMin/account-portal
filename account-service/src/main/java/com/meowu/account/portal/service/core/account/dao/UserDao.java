@@ -1,7 +1,7 @@
 package com.meowu.account.portal.service.core.account.dao;
 
-import com.meowu.account.portal.client.account.entity.Gender;
-import com.meowu.account.portal.client.account.entity.User;
+import com.meowu.account.portal.service.core.account.entity.Gender;
+import com.meowu.account.portal.service.core.account.entity.User;
 import com.meowu.account.portal.service.core.account.dao.mapper.UserMapper;
 import com.meowu.commons.mybatis.mysql.criteria.Criteria;
 import com.meowu.commons.mybatis.mysql.criteria.Restrictions;
@@ -27,11 +27,9 @@ public class UserDao{
         AssertUtils.notNull(user, "user must not be null");
         AssertUtils.hasText(user.getAccountId(), "user account id must not be null");
 
-        //设置参数
         user.setId(snowflakeUtils.getId());
         user.setCreateTime(new Date());
 
-        //默认值
         if(StringUtils.isBlank(user.getNickname())){
             user.setNickname(IDUtils.random());
         }
@@ -46,7 +44,6 @@ public class UserDao{
         AssertUtils.notNull(user, "user must not be null");
         AssertUtils.hasText(user.getId(), "user id must not be null");
 
-        //设置参数
         user.setUpdateTime(new Date());
 
         mapper.update(user);
@@ -55,7 +52,6 @@ public class UserDao{
     public User getByAccountId(String accountId){
         AssertUtils.hasText(accountId, "user account id must not be null");
 
-        //查询参数
         Criteria criteria = new Criteria();
         criteria.add(Restrictions.eq("accountId", accountId));
 

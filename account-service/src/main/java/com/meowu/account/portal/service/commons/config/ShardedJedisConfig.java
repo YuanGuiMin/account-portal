@@ -2,12 +2,13 @@ package com.meowu.account.portal.service.commons.config;
 
 import com.meowu.account.portal.service.commons.security.exception.ConfigurationException;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisShardInfo;
+import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
 
 import java.util.List;
@@ -51,7 +52,7 @@ public class ShardedJedisConfig{
                                                   .collect(Collectors.toList());
 
         // create the config
-        JedisPoolConfig config = new JedisPoolConfig();
+        GenericObjectPoolConfig<ShardedJedis> config = new GenericObjectPoolConfig<ShardedJedis>();
         config.setMaxTotal(maxTotal);
         config.setMaxIdle(maxIdle);
         config.setMinIdle(minIdle);

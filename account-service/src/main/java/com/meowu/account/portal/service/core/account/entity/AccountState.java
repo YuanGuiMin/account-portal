@@ -1,4 +1,4 @@
-package com.meowu.account.portal.client.account.entity;
+package com.meowu.account.portal.service.core.account.entity;
 
 import com.google.gson.annotations.SerializedName;
 import com.meowu.account.portal.client.security.exception.InvalidAccountStateException;

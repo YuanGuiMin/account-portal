@@ -1,6 +1,6 @@
 package com.meowu.account.portal.service.core.account.httpservice;
 
-import com.meowu.account.portal.client.account.entity.view.AccountVO;
+import com.meowu.account.portal.client.account.entity.response.AccountVO;
 import com.meowu.account.portal.service.core.account.service.AccountService;
 import com.meowu.account.portal.service.core.account.service.TokenService;
 import com.meowu.commons.utils.security.response.Response;

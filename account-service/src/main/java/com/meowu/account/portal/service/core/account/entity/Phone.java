@@ -1,4 +1,4 @@
-package com.meowu.account.portal.client.account.entity;
+package com.meowu.account.portal.service.core.account.entity;
 
 import com.meowu.commons.utils.domain.Creatable;
 import com.meowu.commons.utils.domain.Entity;
@@ -10,10 +10,11 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class Email extends Entity implements Creatable, Updatable{
+public class Phone extends Entity implements Creatable, Updatable{
 
     private String accountId;
-    private String address;
+    private String code;
+    private String number;
     private Date   createTime;
     private Date   updateTime;
 }

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.meowu.account.portal.service.core.account.dao.mapper.UserMapper">
+
+    <sql id="WHERE_SQL">
+        <if test="params != null and params.conditions != null and !params.conditions.isEmpty">
+            <where>
+                <foreach collection="params.conditions" item="criterion">
+                    <trim prefix="AND (" suffix=")">
+                        <choose>
+                            <when test="criterion.singleValue">
+                                ${criterion.field} ${criterion.operator} #{criterion.value}
+                            </when>
+                            <when test="criterion.twinValue">
+                                ${criterion.field} ${criterion.operator} #{criterion.value} AND ${criterion.secondValue}
+                            </when>
+                            <when test="criterion.listValue">
+                                ${criterion.field} ${criterion.operator}
+                                <foreach collection="criterion.value" item="value" open="(" close=")" separator=",">
+                                    #{value}
+                                </foreach>
+                            </when>
+                            <when test="criterion.noValue">
+                                ${criterion.field} ${criterion.operator}
+                            </when>
+                            <when test="criterion.criterionValue">
+                                <foreach collection="criterion.value" item="item" open="(" close=")" separator="criterion.operator">
+                                    <trim prefix="(" suffix=")">
+                                        <choose>
+                                            <when test="item.singleValue">
+                                                ${item.field} ${item.operator} #{item.value}
+                                            </when>
+                                            <when test="item.twinValue">
+                                                ${item.field} ${item.operator} #{item.value} AND ${item.secondValue}
+                                            </when>
+                                            <when test="item.listValue">
+                                                ${item.field} ${item.operator}
+                                                <foreach collection="item.value" item="value" open="(" close=")" separator=",">
+                                                    #{value}
+                                                </foreach>
+                                            </when>
+                                            <when test="item.noValue">
+                                                ${item.field} ${item.operator}
+                                            </when>
+                                        </choose>
+                                    </trim>
+                                </foreach>
+                            </when>
+                        </choose>
+                    </trim>
+                </foreach>
+            </where>
+        </if>
+    </sql>
+
+    <sql id="SORT_SQL">
+        <if test="params != null and params.sort != null and !params.sort.isEmpty">
+            ORDER BY
+            <foreach collection="params.sort" item="sort" separator=",">
+                #{sort.field} ${sort.value}
+            </foreach>
+        </if>
+    </sql>
+
+    <sql id="LIMIT_SQL">
+        <if test="params != null and params.limit != null">
+            ${params.limit.operator} ${params.limit.value}, ${params.limit.secondValue}
+        </if>
+    </sql>
+
+    <sql id="GROUP_BY_SQL">
+        <if test="params != null and params.groupBy != null">
+            ${params.groupBy.operator} ${params.groupBy.value}
+        </if>
+    </sql>
+
+    <resultMap id="user" type="com.meowu.account.portal.service.core.account.entity.User">
+        <id     column="id"             property="id"            javaType="java.lang.String"/>
+        <result column="account_id"     property="accountId"     javaType="java.lang.String"/>
+        <result column="nickname"       property="nickname"      javaType="java.lang.String"/>
+        <result column="head_img"       property="headImg"       javaType="java.lang.String"/>
+        <result column="background_img" property="backgroundImg" javaType="java.lang.String"/>
+        <result column="description"    property="description"   javaType="java.lang.String"/>
+        <result column="gender"         property="gender"        typeHandler="com.meowu.account.portal.service.core.account.dao.mapper.handler.GenderTypeHandler"/>
+        <result column="create_time"    property="createTime"    javaType="java.util.Date"/>
+        <result column="update_time"    property="updateTime"    javaType="java.util.Date"/>
+    </resultMap>
+
+    <insert id="save">
+        INSERT
+          INTO user (
+               id,
+               account_id,
+               nickname,
+               head_img,
+               background_img,
+               description,
+               gender,
+               create_time
+          ) VALUE (
+               #{id,            jdbcType=VARCHAR},
+               #{accountId,     jdbcType=VARCHAR},
+               #{nickname,      jdbcType=VARCHAR},
+               #{headImg,       jdbcType=VARCHAR},
+               #{backgroundImg, jdbcType=VARCHAR},
+               #{description,   jdbcType=VARCHAR},
+               #{gender,        typeHandler=com.meowu.account.portal.service.core.account.dao.mapper.handler.GenderTypeHandler},
+               #{createTime,    jdbcType=TIMESTAMP}
+          )
+    </insert>
+
+    <update id="update">
+        UPDATE user
+         <set>
+             <if test="nickname != null and nickname != ''">
+                 nickname = #{nickname, jdbcType=VARCHAR},
+             </if>
+             <if test="headImg != null and headImg != ''">
+                 head_img = #{headImg, jdbcType=VARCHAR},
+             </if>
+             <if test="backgroundImg != null and backgroundImg != ''">
+                 background_img = #{backgroundImg, jdbcType=VARCHAR},
+             </if>
+             <if test="description != null and description != ''">
+                 description = #{description, jdbcType=VARCHAR},
+             </if>
+             <if test="gender != null">
+                 gender = #{gender, typeHandler=com.meowu.account.portal.service.core.account.dao.mapper.handler.GenderTypeHandler},
+             </if>
+             <if test="updateTime != null">
+                 update_time = #{updateTime, jdbcType=TIMESTAMP},
+             </if>
+         </set>
+          WHERE id = #{id}
+    </update>
+
+    <select id="get" resultMap="user">
+        SELECT *
+          FROM user
+        <include refid="WHERE_SQL"/>
+    </select>
+
+    <select id="find" resultMap="user">
+        SELECT *
+          FROM user
+        <include refid="WHERE_SQL"/>
+
+        <include refid="SORT_SQL"/>
+
+        <include refid="LIMIT_SQL"/>
+    </select>
+
+    <select id="count" resultType="java.lang.Long">
+        SELECT COUNT(id)
+          FROM user
+        <include refid="WHERE_SQL"/>
+    </select>
+</mapper>
