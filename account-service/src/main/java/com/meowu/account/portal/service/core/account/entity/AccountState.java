@@ -6,10 +6,14 @@ import com.meowu.commons.utils.utils.AssertUtils;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.stereotype.Service;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum AccountState{
+
+    @SerializedName("-1")
+    ABNORMAL(-1),
 
     @SerializedName("0")
     NORMAL(0),

@@ -7,29 +7,21 @@ import org.apache.commons.lang3.StringUtils;
 public class AccountUtils{
 
     public static AccountVO toView(Account account){
-        return toView(null, account, null, null, null);
+        return toView(account, null, null, null);
     }
 
-    public static AccountVO toView(String token ,Account account){
-        return toView(token, account, null, null, null);
+    public static AccountVO toView(Account account, User user){
+        return toView(account, user, null, null);
     }
 
-    public static AccountVO toView(String token, Account account, User user){
-        return toView(token, account, user, null, null);
-    }
-
-    public static AccountVO toView(String token, Account account, User user, Email email, Phone phone){
+    public static AccountVO toView(Account account, User user, Email email, Phone phone){
         AccountVO view = new AccountVO();
-
-        // token
-        if(StringUtils.isNotBlank(token)){
-            view.setToken(token);
-        }
 
         // account
         if(account != null){
+            view.setAccountId(account.getId());
             view.setUsername(account.getUsername());
-            view.setState(account.getState().getId());
+            view.setState(account.getState() == null ? AccountState.ABNORMAL.getId() : account.getState().getId());
             view.setDeleted(account.getDeleted());
             view.setCreateTime(account.getCreateTime());
             view.setUpdateTime(account.getUpdateTime());
@@ -38,6 +30,7 @@ public class AccountUtils{
 
         // user
         if(user != null){
+            view.setUserId(user.getId());
             view.setNickname(user.getNickname());
             view.setHeadImg(user.getHeadImg());
             view.setBackgroundImg(user.getBackgroundImg());

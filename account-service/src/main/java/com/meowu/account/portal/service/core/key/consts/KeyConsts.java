@@ -9,6 +9,6 @@ public interface KeyConsts{
 
     // RSA key lock name
     String RSA_REDIS_PASSWORD_LOCK = "lock:password:rsa:";
-    //5 minutes
+    // 5 minutes
     long RSA_REDIS_PASSWORD_LOCK_EXPIRE = TimeUnit.MINUTES.toSeconds(5);
 }

@@ -57,9 +57,14 @@ public class KeyManager{
                     rsaPrivateKey.setContent(privateKeyContent);
                     keyDao.save(rsaPrivateKey);
                 }
+
+                ShardedJedisHelper.delete(jedis, lock);
             }
-        }finally{
+        }catch(Exception e){
             ShardedJedisHelper.delete(jedis, lock);
+
+            // throw exception anyway
+            throw e;
         }
     }
 }

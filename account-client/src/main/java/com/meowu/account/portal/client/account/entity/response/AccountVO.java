@@ -12,7 +12,8 @@ import java.util.Date;
 @Setter
 public class AccountVO implements Creatable, Updatable, Deletable{
 
-    private String  token;
+    private String  accountId;
+    private String  userId;
     private String  username;
     private String  nickname;
     private String  headImg;
