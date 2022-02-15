@@ -1,6 +1,5 @@
 package com.meowu.account.portal.service.commons.config;
 
-import com.google.common.collect.Lists;
 import com.meowu.commons.utils.utils.GsonUtils;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
